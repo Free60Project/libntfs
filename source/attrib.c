@@ -1412,6 +1412,7 @@ err_out:
 	return ret;
 }
 
+#ifndef READONLY
 static int stuff_hole(ntfs_attr *na, const s64 pos);
 
 /*
@@ -1734,6 +1735,7 @@ static int borrow_from_hole(ntfs_attr *na, runlist_element **prl,
 			*update_from = (*prl)->vcn;
 	return (compressed_part);
 }
+#endif
 
 static int ntfs_attr_truncate_i(ntfs_attr *na, const s64 newsize,
 				hole_type holes);
@@ -1759,6 +1761,7 @@ static int ntfs_attr_truncate_i(ntfs_attr *na, const s64 newsize,
  */
 s64 ntfs_attr_pwrite(ntfs_attr *na, const s64 pos, s64 count, const void *b)
 {
+#ifndef READONLY
 	s64 written, to_write, ofs, old_initialized_size, old_data_size;
 	s64 total = 0;
 	VCN update_from = -1;
@@ -2302,6 +2305,9 @@ err_out:
 errno_set:
 	total = -1;
 	goto out;
+#else
+return -1;
+#endif
 }
 
 int ntfs_attr_pclose(ntfs_attr *na)
@@ -6455,6 +6461,7 @@ int ntfs_attr_truncate_solid(ntfs_attr *na, const s64 newsize)
 	return (ntfs_attr_truncate_i(na, newsize, HOLES_NO));
 }
 
+#ifndef READONLY
 /*
  *		Stuff a hole in a compressed file
  *
@@ -6541,6 +6548,7 @@ static int stuff_hole(ntfs_attr *na, const s64 pos)
 	}
 	return (ret);
 }
+#endif
 
 /**
  * ntfs_attr_readall - read the entire data from an ntfs attribute

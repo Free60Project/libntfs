@@ -490,7 +490,7 @@ cleanup:
 
     return ni;
 }
-
+#ifndef READONLY
 int ntfsLink (ntfs_vd *vd, const char *old_path, const char *new_path)
 {
     ntfs_inode *dir_ni = NULL, *ni = NULL;
@@ -687,6 +687,7 @@ cleanup:
 
     return 0;
 }
+#endif
 
 int ntfsSync (ntfs_vd *vd, ntfs_inode *ni)
 {

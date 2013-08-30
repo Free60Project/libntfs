@@ -8,6 +8,17 @@ debug: cube-debug wii-debug xenon-debug
 
 release: xenon-release 
 
+readonly: xenon-readonly
+
+readonlyinstall: xenon-readonly_install
+
+xenon-readonly:
+	$(MAKE) -C source PLATFORM=xenon BUILD=xenon_readonly
+
+xenon-readonly_install:
+	$(MAKE) -C source PLATFORM=xenon BUILD=xenon_readonly
+	$(MAKE) -C source install
+
 xenon-debug:
 	$(MAKE) -C source PLATFORM=xenon BUILD=xenon_debug
 

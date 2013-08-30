@@ -46,16 +46,30 @@ static const devoptab_t devops_ntfs = {
     sizeof (ntfs_file_state),
     ntfs_open_r,
     ntfs_close_r,
+#ifndef READONLY
     ntfs_write_r,
+#else
+	NULL,
+#endif
     ntfs_read_r,
     ntfs_seek_r,
     ntfs_fstat_r,
     ntfs_stat_r,
+#ifndef READONLY
     ntfs_link_r,
     ntfs_unlink_r,
+#else
+	NULL,
+	NULL,
+#endif
     ntfs_chdir_r,
+#ifndef READONLY
     ntfs_rename_r,
     ntfs_mkdir_r,
+#else
+	NULL,
+	NULL,
+#endif
     sizeof (ntfs_dir_state),
     ntfs_diropen_r,
     ntfs_dirreset_r,

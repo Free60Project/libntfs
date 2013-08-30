@@ -23,7 +23,7 @@ LIBDIR		:=	../lib
 #---------------------------------------------------------------------------------
 # options for code generation
 #---------------------------------------------------------------------------------
-CFLAGS		=	-g -Os -Wall  $(MACHDEP) $(INCLUDE) -DHAVE_CONFIG_H -DWORDS_BIGENDIAN  -DLIBXENON
+CFLAGS		=	-g -Os -Wall -Wno-format $(MACHDEP) $(INCLUDE) -DHAVE_CONFIG_H -DWORDS_BIGENDIAN  -DLIBXENON 
 CXXFLAGS	=	$(CFLAGS)
 ASFLAGS		:=	-g
 export NTFSBIN	:= $(LIBDIR)/$(PLATFORM)/libntfs.a
@@ -31,6 +31,11 @@ export NTFSBIN	:= $(LIBDIR)/$(PLATFORM)/libntfs.a
 ifeq ($(BUILD),xenon_debug)
 CFLAGS += -DDEBUG_GEKKO
 CXXFLAGS += -DDEBUG_GEKKO
+endif
+
+ifeq ($(BUILD),xenon_readonly)
+CFLAGS += -DREADONLY
+CXXFLAGS += -DREADONLY
 endif
 
 #---------------------------------------------------------------------------------

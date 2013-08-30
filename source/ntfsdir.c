@@ -123,6 +123,7 @@ int ntfs_stat_r (struct _reent *r, const char *path, struct stat *st)
     return 0;
 }
 
+#ifndef READONLY
 int ntfs_link_r (struct _reent *r, const char *existing, const char *newLink)
 {
     ntfs_log_trace("existing %s, newLink %s\n", existing, newLink);
@@ -168,6 +169,7 @@ int ntfs_unlink_r (struct _reent *r, const char *name)
 
     return ret;
 }
+#endif
 
 int ntfs_chdir_r (struct _reent *r, const char *name)
 {
@@ -215,6 +217,7 @@ int ntfs_chdir_r (struct _reent *r, const char *name)
     return 0;
 }
 
+#ifndef READONLY
 int ntfs_rename_r (struct _reent *r, const char *oldName, const char *newName)
 {
     ntfs_log_trace("oldName %s, newName %s\n", oldName, newName);
@@ -303,6 +306,7 @@ int ntfs_mkdir_r (struct _reent *r, const char *path, int mode)
 
     return 0;
 }
+#endif
 
 int ntfs_statvfs_r (struct _reent *r, const char *path, struct statvfs *buf)
 {

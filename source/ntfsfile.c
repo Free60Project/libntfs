@@ -253,6 +253,7 @@ int ntfs_close_r (struct _reent *r, int fd)
     return 0;
 }
 
+#ifndef READONLY
 ssize_t ntfs_write_r (struct _reent *r, int fd, const char *ptr, size_t len)
 {
     ntfs_log_trace("fd %p, ptr %p, len %u\n", (void *) fd, ptr, len);
@@ -318,6 +319,7 @@ ssize_t ntfs_write_r (struct _reent *r, int fd, const char *ptr, size_t len)
 
     return written;
 }
+#endif
 
 ssize_t ntfs_read_r (struct _reent *r, int fd, char *ptr, size_t len)
 {
